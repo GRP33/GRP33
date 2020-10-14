@@ -2886,3 +2886,10 @@ C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\obj\Debug\MyBookingRoles.dl
 C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\obj\Debug\MyBookingRoles.pdb
 C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\obj\Debug\MyBookingRoles.Migrations._null.resources
 C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\obj\Debug\MyBookingRoles.Migrations.SomeChanges.resources
+C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\bin\Twilio.dll
+C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\koolj\Documents\GitHub\GRP33\MyBookingRoles\bin\Twilio.xml
