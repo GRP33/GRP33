@@ -1,0 +1,87 @@
+﻿@model MyBookingRoles.Models.RateService.Feedback
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/dist/style.css" />
+<div class="panel panel-success col-xs-8 col-xs-offset-2">
+    <div class="panel-heading"><h2>Send Feedback </h2></div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal panel panel-default">
+
+                <div class="panel-heading">Evaluate Service</div>
+                <div class="panel-body panel-info">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BookingID, "BookingID", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("BookingID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.BookingID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+
+                        <div class="col-md-10  container">
+                            <p style="color:dodgerblue">How satisfied were you with the service provided by our Artist? How can you rate the service as : </p>
+
+                            <span class="star__container" style="width: 180px; height:60px; background-color:dodgerblue">
+                                <input type="radio" name="Poor" value="1" id="star-1" class="star__radio visuhide">
+                                <input type="radio" name="Not Bad" value="2" id="star-2" class="star__radio visuhide">
+                                <input type="radio" name="Good" value="3" id="star-3" class="star__radio visuhide">
+                                <input type="radio" name="Very Good" value="4" id="star-4" class="star__radio visuhide">
+                                <input type="radio" name="Excelent" value="5" id="star-5" class="star__radio visuhide">
+
+                                <label class="star__item" for="star-1"><span class="visuhide">1 star</span></label>
+                                <label class="star__item" for="star-2"><span class="visuhide">2 stars</span></label>
+                                <label class="star__item" for="star-3"><span class="visuhide">3 stars</span></label>
+                                <label class="star__item" for="star-4"><span class="visuhide">4 stars</span></label>
+                                <label class="star__item" for="star-5"><span class="visuhide">5 stars</span></label>
+                            </span>
+
+
+                            @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(a => a.Comment, "Comment", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <textarea class="form-control" rows="4" id="comment"></textarea>
+                            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Submit" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>

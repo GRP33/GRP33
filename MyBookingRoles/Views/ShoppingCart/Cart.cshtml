@@ -9,23 +9,23 @@
 @{
     decimal s = 0;
 }
-<div class="form-inline" id="printdivcontent">
+<div class=" form-inline" id="printdivcontent">
     @using (Html.BeginForm("Update", "ShoppingCart", FormMethod.Post))
     {
-        <table class="table table-bordered table-hover table-condensed" id="UsersWithRoles">
+        <table class=" table table-hover table-condensed">
             <tr>
-                <th>Name</th>
+                <th> Name</th>
                 <th>Image</th>
                 <th>Price</th>
                 <th>Quantity <input type="submit" value="Update" class="btn btn-default pull-right" /></th>
-                <th>Sub</th>
+                <th>Sub Total</th>
                 <th>Operations</th>
             </tr>
             @if ((List<Item>)Session["cart"] != null)
             {
                 foreach (var item in (List<Item>)Session["cart"])
                 {
-                    s = s + item.Pr.Price * item.Quantity;
+                    s = s + item.Price * item.Quantity;
                     <tr>
                         <td>@item.Pr.ProductName</td>
                         <td>
@@ -37,57 +37,47 @@
                                 <img src='@imgsrc' style="width:100px;height:100px" class="img-circle" />
                             }
                         </td>
-                        <td>R @item.Pr.Price</td>
-                        <td><input type="text" name="quantity" value="@item.Quantity" class="form-control" /></td>
+                        <td> @item.Price</td>
                         <td>
-                            R @(item.Pr.Price * item.Quantity)
+                            <input type="text" name="quanity" value=" " class="form-control" />
                         </td>
-                        <td>@Html.ActionLink("Remove Item", "Delete", "ShoppingCart", new { id = item.Pr.ProductID }, new { @class = "btn btn-default" })</td>
+                        <td>
+                            R @(item.Price* item.Quantity)
+                        </td>
+                        <td> @Html.ActionLink("Remove item", "Delete", "ShoppingCart", new { id = item.Pr.ProductID }, new { @class = "btn btn-default" })</td>
                     </tr>
-
                 }
             }
             else
             {
                 <tr class="row">
                     <td>
-                        <h3>Please Add Products To Cart From the Catalogue.</h3>
+                        <h3>
+                            Please Add Products to cart from the @Html.ActionLink("Store", "ProdCatalogue", "Store")
+                        </h3>
                     </td>
                 </tr>
+
             }
         </table>
         <br />
         <p>
             <h3>
-                Total Amount : R @s
+                Total Amount:R @s
             </h3>
         </p>
     }
+
     <hr />
     <div class="form-inline">
         @Html.ActionLink("Continue Shopping!", "ProdCatalogue", "Store", null, new { @class = "btn btn-default" }) |
 
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            if (s != 0)
-            {
-                @Html.ActionLink("Check-Out!", "CheckOut", "ShoppingCart", null, new { @class = "btn btn-success" });
-            }
-            else
-            {
-                @Html.ActionLink("Add Items To Your Cart", "ProdCatalogue", "Store", null, new { @class = "btn btn-primary" })
-            }
-        }
-        else
-        {
-            <span class="btn btn-danger">You must be Logged in To Check-Out.</span>
-        }
-
+        @Html.ActionLink("Checkout", "Checkout", "ShoppingCart", null, new { @class = "btn btn-default" })
         <button type="button" onclick="PrintDiv();" class="btn btn-default pull-right">Print Order.</button>
 
     </div>
 </div>
+
 <script type="text/javascript">
     function PrintDiv() {
         var divContents = document.getElementById("printdivcontent").innerHTML;

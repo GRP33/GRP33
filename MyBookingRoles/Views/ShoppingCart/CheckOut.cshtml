@@ -7,103 +7,291 @@
 
 <h2><u>Check-Out : @ViewBag.User</u></h2>
 
+
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet" href="~/Content/Store/css/bootstrap.min.css" />
+<!--slick-->
+<link type="text/css" rel="stylesheet" href="~/Content/Store/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="~/Content/Store/css/slick-theme.css" />
+<!--nouislider-->
+<link type="text/css" rel="stylesheet" href="~/Content/Store/css/nouislider.min.css" />
+<!--font awesome-->
+<link type="text/css" rel="stylesheet" href="~/Content/Store/css/font-awesome.min.css" />
+<!--custom style-->
+<link type="text/css" rel="stylesheet" href="~/Content/Store/css/style.css" />
+
+
+
+<script src="https://www.paypal.com/sdk/js?client-id=AatDbCadMjep2D0F17BQgqr7QSzt6pFKoe93P3MvzChC-j6qjuWLHF311kAyv5El4fLd4aENrECzWWnR">
+    // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+</script>
+<div id="paypal-button-container"></div>
+<script>
+    paypal.Buttons({
+        createOrder: function (data, actions) {
+            // This function sets up the details of the transaction, including the amount and line item details.
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '0.01'
+                    }
+                }]
+            });
+        },
+
+        onApprove: function (data, actions) {
+            // This function captures the funds from the transaction.
+            return actions.order.capture().then(function (details) {
+                // This function shows a transaction success message to your buyer.
+                alert('Transaction completed by ' + details.payer.given_name);
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+<script>
+
+</script>
+
+
+
+<h2>Checkout</h2>
+<h2><u>You checking out @ViewBag.User </u></h2>
+
+
 @{
     decimal s = 0;
 }
-<div class="form-inline">
-    <h2>Your Ordered Products</h2>
-    <table class="table table-bordered table-hover table-condensed">
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Sub</th>
-            <th>Discount Price</th>
-            <th  style="text-align:center; background-color: gray;">Operations</th>
-        </tr>
-        @if ((List<Item>)Session["cart"] != null)
-        {
-            foreach (var item in (List<Item>)Session["cart"])
+<div class="section">
+    <div class="container">
+        <div class=" row">
+            @if (s != 0)
             {
-                s = item.Price + item.Pr.Price * item.Quantity;
-                <tr>
-                    <td>@item.Pr.ProductName</td>
-                    <td>R @item.Pr.Price</td>
-                    <td>@item.Quantity</td>
-                    <td>
-                        R @(item.Pr.Price * item.Quantity)
-                    </td>
-                    <td></td>
-                    <td style="text-align:center;">@Html.ActionLink("Remove Item", "Delete", "ShoppingCart", new { id = item.Pr.ProductID }, new { @class = "btn btn-danger" })</td>
-                </tr>
-            }
-        }
-        else
-        {
-            <tr class="row">
-                <td style="color: red;">
-                    <h3>Check-Out Empty .</h3>
-                    <p>
-                        @Html.ActionLink("Go Back Shopping!", "ProdCatalogue", "Store")
-                    </p>
-                </td>
-            </tr>
-        }
-    </table>
-    <br />
-    <p>
-        <h3 >
-            Total Amount : R @s
-        </h3>
-    </p>
+                <div class="col-md-7">
+                    <!-- Billing Details -->
 
-    <hr />
-    @*<ul>
-        <li>Add user Address full Details</li>
-    </ul>*@
-    @if (s != 0)
-    {
-        <div class="form-inline">
-            @using (Html.BeginForm("ProcessOrder", "ShoppingCart", FormMethod.Post, new { id = "customerform" }))
-            {
-                <h2 style="text-align:center; background-color: gray;">Customer & Delivery Information</h2>
-                <table class="table table-bordered table-hover table-condensed">
-                    <tr>
-                        <td>Total Amount</td>
-                        <td>R <input type="text" name="TotalAmount" value="@s" readonly class="form-control"/></td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>&nbsp; &nbsp; <input type="text" name="custName" required class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td>Customer Phone</td>
-                        <td>&nbsp; &nbsp; <input type="text" name="custPhone" required class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td>Customer Email</td>
-                        <td>&nbsp; &nbsp; <input type="text" name="custEmail" value="@ViewBag.User" class="form-control" class="form-control" /></td>
-                    </tr>
-                    <tr>
-                        <td>Customer Address</td>
-                        <td>&nbsp; &nbsp; <input type="text" name="custAddress" required class="form-control" /></td>
-                    </tr>
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">Billing address</h3>
+                        </div>
+                        <div class="caption form-group form-inline">
+                            @using (Html.BeginForm("ProcessOrder", "Shoppingcart", FormMethod.Post, new { id = "customerform" }))
+                            {
+                                <div class="caption">
+                                    <div class="form-group">
+                                        <input class="input" type="text" name="firstName" placeholder="First Name">
 
-                </table>
-                <div class="form-group">
-                    <input type="submit" value="Process Order" class="btn btn-success"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="input" type="text" name="lastName" placeholder="Last Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="input" type="email" name="custEmail" placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="input" type="text" name="address" placeholder="Address">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="input" type="text" name="city" placeholder="City">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="input" type="text" name="country" placeholder="Country">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="input" type="tel" name="tel" placeholder="Telephone">
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <div class="input-checkbox">
+                                <input type="checkbox" id="create-account">
+                                <label for="create-account">
+                                    <span></span>
+                                    Create Account?
+                                </label>
+                                <div class="caption">
+                                    <p>Enter your password that you will use to login. By proceeding, you agree to our term and conditions. </p>
+                                    <input class="input" type="password" name="password" placeholder="Enter Your Password">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Billing Details -->
+                    <!-- Shiping Details -->
+                    <div class="shiping-details">
+                        <div class="section-title">
+                            <h3 class="title">Shiping address</h3>
+                        </div>
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="shiping-address">
+                            <label for="shiping-address">
+                                <span></span>
+                                Ship to a diffrent address?
+                            </label>
+                            <div class="caption">
+
+                                <div class="form-group">
+                                    <input class="input" type="text" name="first-name" placeholder="First Name">
+
+                                </div>
+                                <div class="form-group">
+                                    <input class="input" type="text" name="last-name" placeholder="Last Name">
+                                </div>
+                                <div class="form-group">
+                                    <input class="input" type="email" name="email" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input class="input" type="text" name="address" placeholder="Address">
+                                </div>
+                                <div class="form-group">
+                                    <input class="input" type="text" name="city" placeholder="City">
+                                </div>
+                                <div class="form-group">
+                                    <input class="input" type="text" name="country" placeholder="Country">
+                                </div>
+                                <div class="form-group">
+                                    <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
+                                </div>
+                                <div class="form-group">
+                                    <input class="input" type="tel" name="tel" placeholder="Telephone">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Shiping Details -->
+                    <!-- Order notes -->
+                    <div class="order-notes">
+                        <textarea class="input" placeholder="Order Notes"></textarea>
+                    </div>
+                    <!-- /Order notes -->
                 </div>
             }
         </div>
+    </div>
 
-        <hr />
-        <div class="row">
-            @Html.ActionLink("Go Back Shopping!", "ProdCatalogue", "Store", null, new { @class = "btn btn-default pull-left" })
-            
-            @*@Html.ActionLink("Save Shopping Cart!", "#", "#", null, new { @class = "btn btn-danger" }) | 
-            @Html.ActionLink("View Saved Shoppings!", "#", "#", null, new { @class = "btn btn-danger" })*@
+
+
+
+
+
+    </div>
+    <div class="section">
+    <!-- container -->
+    <div class="container">
+    <!-- row -->
+    <div class="row">
+    <!-- Order Details -->
+    <div class="col-md-5 order-details">
+        <div class="section-title text-center">
+            <h3 class="title">Your Order</h3>
         </div>
-    }
+        <div class="order-summary">
+
+
+
+            <div class="order-col">
+                <div><strong>PRODUCT</strong></div>
+                <div><strong>PRICE EACH</strong></div>
+                <div><strong>QUANTITY</strong></div>
+                <div><strong>SUBTOTAL</strong></div>
+            </div>
+            <div class="order-products">
+                <div class="order-col">
+                    @if ((List<Item>)Session["cart"] != null)
+                    {
+                        foreach (var item in (List<Item>)Session["cart"])
+                        {
+                            s = item.Price + item.Pr.Price * item.Quantity;
+                            <div>@item.Pr.ProductName </div>
+                            <div>R @item.Pr.Price </div>
+                            <div>@item.Quantity </div>
+                            <div>R @(item.Pr.Price* item.Quantity) </div>
+                            <div>
+                                <img src="~/images/close.png" style="height:10px; width:10px" @Html.ActionLink("Delete", "ShoppingCart", new { id = item.Pr.ProductID }) />
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="animated bounce slower infinite">
+                            <h3> Check-Out Empty</h3>
+
+                            <p>@Html.ActionLink("Go Back to Shopping!", "ProdCatalogue", "Store")</p>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <div class="order-col">
+                <div><strong>Shipping</strong></div>
+                <div><strong>FREE</strong></div>
+            </div>
+            <div class="order-col">
+                <div><strong>TOTAL</strong></div>
+                <div><strong class="order-total">R @s</strong></div>
+            </div>
+        </div>
+        <div class="payment-method">
+            <div class="input-radio">
+                <input type="radio" name="payment" id="payment-1">
+                <label for="payment-1">
+                    <span class="fa fa-bank"></span>
+                    Credit Card
+                </label>
+                <div class="caption">
+                    <p>Items will be released once payment is reflected on our side. The banking details are on @Html.ActionLink("Contact Page", "Contact", "Home")</p>
+                </div>
+            </div>
+            @*<div class="input-radio">
+                    <input type="radio" name="payment" id="payment-2">
+                    <label for="payment-2">
+                        <span class=" fa fa-car"></span>
+                        Cheque Payment
+                    </label>
+                    <div class="caption">
+                        <p>To prevent fraud,items will be released once our bank clears the check. </p>
+                    </div>
+                </div>*@
+            <div class="input-radio">
+                <input type="radio" name="payment" id="payment-3">
+                <label for="payment-3">
+                    <span class="fa fa-paypal"></span>
+                    Paypal System
+                </label>
+                <div class="caption">
+                    <p>Paypal is a safe and fast way to make payments. Please make sure the details are valid. We are not responsible for any loss of your funds during online sales.</p>
+                </div>
+            </div>
+        </div>
+        <div class="input-checkbox">
+            <input type="checkbox" id="terms">
+            <label for="terms">
+                <span></span>
+                I've read and accept the <a href="@Url.Action("Terms","ShoppingCart")">terms & conditions</a>
+            </label>
+        </div>
+        <a href="#" class="primary-btn order-submit">Place order</a>
+    </div>
+    <!-- /Order Details -->
 </div>
+<!-- /row -->
+        </div>
+<!-- /container -->
+    </div>
+<!-- /SECTION -->
 
-
+<!--jQuery Plugins-->
+<script src="~/Scripts/StoreJs/js/jquery.min.js"></script>
+<script src="~/Scripts/StoreJs/js/bootstrap.min.js"></script>
+<script src="~/Scripts/StoreJs/js/jquery.zoom.min.js"></script>
+<script src="~/Scripts/StoreJs/js/main.js"></script>
+<script src="~/Scripts/StoreJs/js/nouislider.min.js"></script>
+<script src="~/Scripts/StoreJs/js/slick.min.js"></script>

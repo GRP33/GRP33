@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MyBookingRoles.Models.Booking;
+using MyBookingRoles.Models.RateService;
 
 namespace MyBookingRoles.Models
 {
@@ -44,7 +45,7 @@ namespace MyBookingRoles.Models
         public virtual DbSet<Artist> Artists { get; set; }
         public virtual DbSet<Bookings> Bookings { get; set; }
 
-        //public virtual DbSet<CustomerProfile> Customers { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
 
        // public virtual DbSet<Location> Locations { get; set; }
 

@@ -1,0 +1,25 @@
+﻿@model MyBookingRoles.Models.RateService.Feedback
+@{
+    ViewBag.Title = "SuccessMessage";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+
+<div class=" panel panel-success">
+    <div class=" panel-heading ">Message sent</div>
+
+
+    <div class="panel-body panel-warning">
+        <h1><span class=" glyphicon glyphicon-ok-sign" style=" color:lawngreen"></span></h1>
+        <h2><b>Feedback Submitted</b></h2>
+        <p>Thank you  @Html.DisplayFor(p => p.ApplicationUser.UserName) for you time. Your feedback has been fowarded.We will look into it to serve you better in future</p>
+
+
+        <div>
+            <ul>
+                <li>@Html.ActionLink("Back Home", "Index", "Home")</li>
+            </ul>
+        </div>
+    </div>
+</div>
+

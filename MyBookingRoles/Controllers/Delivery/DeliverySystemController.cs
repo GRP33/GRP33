@@ -7,20 +7,21 @@ using System.Web.Mvc;
 
 namespace MyBookingRoles.Controllers.Delivery
 {
+
     [Authorize(Roles = "Delivery")]
     public class DeliverySystemController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult DeliverySystemDashBoard()
+        public ActionResult DeliveryDashboard()
         {
             return View();
         }
 
-        //public ActionResult ApprovedOrders()
-        //{
-        //    return View(db.Orders.OrderByDescending(x => x.OrderId && x.Status == "").ToList());
-        //}
+        public ActionResult AcceptOrder(int orderID)
+        {
 
+            return View();
+        }
     }
 }

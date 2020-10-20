@@ -2,6 +2,7 @@
 using MyBookingRoles.Models.Store;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,28 +22,27 @@ namespace MyBookingRoles.Controllers.Stores
             return View(db.Orders.Where(p => p.Status.Contains(searchWord) || searchWord == null).ToList());
         }
 
-        [Authorize(Roles = "SuperAdmin")]
-        [HttpPost]
-        public ActionResult ApproveOrder(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
-            //var orderD = db.OrderDetails.Where(o => o.OrderId == id);
-            var ord = db.Orders.Find(id);
 
-            if (ord == null)
-            {
-                return HttpNotFound();
-            }
-            return View("Index");
+
+        [Authorize(Roles = "SuperAdmin")]
+        public ActionResult ApproveOrder(int id)
+        {
+            Order ord = db.Orders.Find(id);
+            ord.Status = "Approved";
+            db.Entry(ord).State = EntityState.Modified;
+            db.SaveChangesAsync();
+
+            return RedirectToAction("Index", new { id = ord.OrderId });
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult DeleteOrder(int id)
         {
-            //write logic for deleting an order with its order details
-            return View("Index");
+            Order ord = db.Orders.Find(id);
+            db.Orders.Remove(ord);
+            db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Orders/Details/5

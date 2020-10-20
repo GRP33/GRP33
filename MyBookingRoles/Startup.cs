@@ -3,7 +3,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 
 using MyBookingRoles.Models;
+using MyBookingRoles.Models.Booking;
 using Owin;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 
@@ -120,8 +122,14 @@ namespace MyBookingRoles
                 {
                     Name = "Apple",
                     isVisible = true
-                });
-            //Save Changes
+                }); 
+            var admin = new List<Administration>()
+            {
+                 new Administration { Name = "Appointment Duration in Minutes [Default:90]",   Value = "90"},
+                 new Administration { Name = "Working Hours Start in 24-Hour Format [Default:8]",   Value = "8"},
+                 new Administration { Name = "Working Hours End in 24-Hour Format [Default:18]",   Value = "18"},
+            };
+            admin.ForEach(s => context.Administrations.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();
         }
     }

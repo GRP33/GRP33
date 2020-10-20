@@ -22,6 +22,45 @@ namespace MyBookingRoles.Models.Store
         public string CustomerPhone { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerAddress { get; set; }
+        [ScaffoldColumn(false)]
+        public string UserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        
+        [Required(ErrorMessage = "Last Name is required")]
+        [Display(Name = "Last Name")]
+        [StringLength(100)]
+        public string LastName { get; set; }
+       
+        [Required(ErrorMessage = "City is requied, please provide")]
+        [StringLength(60)]
+        public string City { get; set; }
+
+        [Required(ErrorMessage = "Enter Postal Code")]
+        [Display(Name = "Postal Code")]
+        [StringLength(8)]
+        public string PostalCode { get; set; }
+        [Required(ErrorMessage = "Oops! Which country?")]
+        [StringLength(60)]
+        public string Country { get; set; }
+       
+        [ScaffoldColumn(false)]
+        public decimal Total { get; set; }
+       
+        [Display(Name = "Expration Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Experation { get; set; }
+        [Display(Name = "Credit Card")]
+        
+        [Required]
+        [DataType(DataType.CreditCard)]
+        public String CreditCard { get; set; }
+        public string CreditCardNumber { get; set; }
+        [Display(Name = "Credit Card Type")]
+       
+        public String CcType { get; set; }
+        public bool SaveInfo { get; set; }
+       
 
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227: CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }

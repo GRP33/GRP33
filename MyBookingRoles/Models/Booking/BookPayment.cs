@@ -6,12 +6,14 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Permissions;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyBookingRoles.Models.Booking
 {
     public class BookPayment
     {
-        public int PaymentID { get; set; }
+        [Key]
+        public int BookPayymentID { get; set; }
         public int BookingID { get; set; }
         public virtual Bookings Bookings { get; set; }
         public int DiscountID { get; set; }

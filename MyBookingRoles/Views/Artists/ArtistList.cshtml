@@ -2,7 +2,7 @@
 @using PagedList.Mvc
 @{
     ViewBag.Title = "ArtistList";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
 }
 <h1> YOUR ARTISTS</h1>
 
@@ -50,12 +50,12 @@
 
                     </div>
                 </div>
-                <div >
-                    <a>
-                        @Html.ActionLink("Book Artist", "Create", "Bookings", new { Controller = "Bookings", Action = "Create", id = x.ArtistID });||
-                        @Html.ActionLink("Details", "Artists", new { id = x.ArtistID })||
-                        @Html.ActionLink("Check Availability", "Availability", "Artists", new { Controller = "Artists", Action = "Availability", id = x.ArtistID })
-                    </a>
+                <div class="add-to-cart">
+
+                    <a class=" btn add-to-cart-btn" href="@Url.Action("Details", "Artists", new { id = x.ArtistID })"><span class=" fa fa-info-circle"></span> Add to cart</a>
+
+                    <a class="btn add-to-cart-btn" href="@Url.Action("Create","Bookings", new { Controller = "Bookings", Action = "Create", id = x.ArtistID })"><span class="fa fa-book"></span>Book</a>
+                    <a class="btn add-to-cart-btn" href="@Url.Action("Availability","Artists",new { Controller = "Artists", Action = "Availability", id = x.ArtistID })"> <span class="fa fa-eye"></span>Check availability </a>
 
 
                 </div>

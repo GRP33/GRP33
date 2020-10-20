@@ -1,120 +1,77 @@
 ﻿@model IEnumerable<MyBookingRoles.Models.Store.Order>
 @{
     ViewBag.Title = "Customer Orders";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
 <h2>My Order List</h2>
-<p>
-    <u>All Your Orders</u>
-</p>
 
-<table class="table table-bordered table-hover table-condensed" id="UsersWithRoles">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerAddress)
-        </th>
-        <th  style="text-align:center; background-color:gray;">Operations</th>
-    </tr>
-
-    @foreach (var item in Model)
+<div class=" row">
+    @if (Model != null)
     {
-        if (item.Status == "Processing" || item.Status == "On_Its_Way")
+        foreach (var item in Model)
         {
-            <tr>
-                 <td>
-                    @Html.DisplayFor(modelItem => item.OrderName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerAddress)
-                </td>
-                <td style="text-align:center;">
-                    @Html.ActionLink("Order Details", "Details", "Orders", new { id = item.OrderId }, new { @class = "btn btn-primary" })
-                </td>
-            </tr>
-        }
-        
+            if (item.Status == "Processing" || item.Status == "On_Its_Way")
+            {
+            <!--column-->
+            <div class="col-lg-8 col-xlg-9 col-md-7">
+                <div class="card">
+                    <div class="card-block">
+                        <!--example-->
+                        <div class=" vertical">
+                            <ul style="background-color:azure">
+                                <li>   <label>OrderNo.:</label> <p>gd-bvots-OrderNo</p> @item.OrderId</li>
+                                <li>
+                                    <label>Payed with:</label>
+                                    @item.PaymentType
+                                </li>
+                               
+                                <li>
+                                    <label>Date Orderd:</label>
+                                    @item.OrderDate
+                                </li>
+                                <li>
+                                    <label>Delivery Address:</label>
+                                    @item.CustomerAddress
+                                </li>
+                                <li>
+                                    <label>Details for this Order:</label>
+                                    @item.OrderDetails
+                                </li>
+                                <li>
+                                    <label>Booking Status:</label>
+                                    @item.Status
+                                </li>
+
+
+
+                            </ul>
+                            <hr />
+                            <button class="btn btn-success">
+                                @Html.ActionLink("Cancel Order", "Edit", new { id = item.OrderId })
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+                    }
+                }
+            }
+            else
+            {
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <div class=" animamted rotateInDownRight slow ">
+                    <p style="color:#ff6a00">NO BOOKINGS AVAILABLE AT THE MOMENT</p>
+                </div>
+                <div>
+                    <p> MAKE A @Html.Action("PURCHASE", "ProdCatalogue", "Store")  </p>
+                </div>
+            </div>
+
+        </div>
     }
-</table>
-
-<hr />
-
-@*<h2>Recieved Orders</h2>
-<p>
-    <u>All Recieved Orders</u>
-</p>
-<table class="table table-bordered table-hover table-condensed" id="UsersWithRoles">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerPhone)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerAddress)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        if (item.Status == "Recieved")
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerPhone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerAddress)
-                </td>
-                <td>
-                    @Html.ActionLink("Order Details", "Details", "Orders", new { id = item.OrderId }, null)
-                </td>
-            </tr>
-        }
-        
-    }
-    
-</table>
-<br />*@
-@Html.ActionLink("Back To Home", "Index", "MyUser", null, new { @class = "btn btn-default" })
-
+</div>

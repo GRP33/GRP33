@@ -1,0 +1,77 @@
+﻿@model IEnumerable<MyBookingRoles.Models.Booking.Bookings>
+@{
+    ViewBag.Title = "getBookings";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>getBookings</h2>
+<div class=" row">
+    @if(Model!=null)
+    {
+    foreach (var item in Model)
+    {
+
+        <!--column-->
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <div class="card-block">
+                    <!--example-->
+                    <div class=" vertical">
+                        <ul style="background-color:azure">
+                            <li>   <label>Artist Booked:</label>@item.Artist.ArtistName</li>
+                            <li>
+                                <label>Date Booked For:</label>
+                                @item.Date
+                            </li>
+                            <li>
+                                <label>Package Selected:</label>
+                                @item.Package.PackageType
+                            </li>
+                            <li>
+                                <label>Service Selected:</label>
+                                @item.Service.ServiceType
+                            </li>
+                            <li>
+                                <label>Location:</label>
+                                @item.Location
+                            </li>
+                            <li>
+                                <label>Cost of this Booking:</label>
+                                @item.TotalDue
+                            </li>
+                            <li>
+                                <label>Booking Status:</label>
+                                @item.Status
+                            </li>
+                          
+
+
+                        </ul>
+                        <hr />
+                        <button class="btn btn-success">
+                            @Html.ActionLink("Update Booking", "Edit", new { id = item.BookingID })
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        }
+    }
+    else
+    {
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <div class=" animamted rotateInDownRight slow ">
+                    <p style="color:#ff6a00">NO BOOKINGS AVAILABLE AT THE MOMENT</p>
+                </div>
+                <div>
+                    <p> MAKE A @Html.Action("BOOKING","Create","Bookings")  or VIEW OUR @Html.Action("ARTIST LIST","ArtistList","Artists")</p>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>

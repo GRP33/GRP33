@@ -142,7 +142,7 @@ namespace MyBookingRoles.Controllers.PayPals
             {
                 
                 shipping = oredr.CustomerAddress,
-                subtotal = (order.Quantity * order.Price).ToString()
+                subtotal = oredr.Total.ToString()
 
             };
 
@@ -150,7 +150,7 @@ namespace MyBookingRoles.Controllers.PayPals
             var amount = new Amount()
             {
                 currency = "ZAR",
-                total = (order.Quantity * order.Price).ToString(),
+                total = oredr.Total.ToString(),
  // Total must be equal to sum of tax, shipping and subtotal.
                 details = details
             };
@@ -197,31 +197,31 @@ namespace MyBookingRoles.Controllers.PayPals
             //ADfress and biiling
             var order = new Models.Store.Order();
             Address pay = new Address();
-            //pay.city = order.City;
-            //pay.country_code = order.Country;
-            //pay.line1 = order.CustomerAddress;
-            //card infor
+            pay.city = order.City;
+            pay.country_code = order.Country;
+            pay.line1 = order.CustomerAddress;
+           // card infor
             CreditCard bill = new CreditCard();
-            //bill.type = order.CreditCard;
-            //bill.cvv2 = order.CcType;
-            //bill.expire_month = order.Experation.Month;
-            //bill.expire_year = order.Experation.Year;
-            //bill.first_name = order.CustomerName;
-            //bill.last_name = order.c;
-            //bill.number = order.CreditCardNumber;
-            //bill.type = order.CcType
+            bill.type = order.CreditCard;
+            bill.cvv2 = order.CcType;
+            bill.expire_month = order.Experation.Month;
+            bill.expire_year = order.Experation.Year;
+            bill.first_name = order.CustomerName;
+            bill.last_name = order.LastName;
+            bill.number = order.CreditCardNumber;
+            bill.type = order.CcType;
 
-           
+
             //total amount to pay
             var oe = new OrderDetails();
             Details details = new Details();
             details.shipping = order.CustomerAddress;
-            details.subtotal = (oe.Quantity * oe.Price).ToString();
+            details.subtotal = order.Total.ToString();
 
             details.tax = oe.Quantity.ToString();
             // oder Details
             Amount amount = new Amount();
-            amount.total = (oe.Quantity * oe.Price).ToString();
+            amount.total = order.Total.ToString();
 
             amount.details = details;
 

@@ -30,6 +30,13 @@ namespace MyBookingRoles.Controllers
         {
             return View();
         }
+        public ActionResult getBookings()
+        {
+            var id = User.Identity.GetUserId().ToString();
+            var book = context.Bookings.Where(a => a.ApplicationUser.Id == id).ToList();
+            ViewBag.Book = id;
+            return View(book);
+        }
 
         //Customer List
         public ActionResult customerOrders()

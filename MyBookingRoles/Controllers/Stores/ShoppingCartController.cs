@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -134,6 +135,12 @@ namespace MyBookingRoles.Controllers.Store
                  };
 
                 context.OrderDetails.Add(item1);
+
+                //Write Statement to Update product quantity on purchase
+                Product prd = context.Products.Find(cart1.Pr.ProductID);
+                prd.InStoreQuantity -= cart1.Quantity;
+                context.Entry(prd).State = EntityState.Modified;
+
                 context.SaveChanges();
 
                 //Write Statement to Update product quantity on purchase
