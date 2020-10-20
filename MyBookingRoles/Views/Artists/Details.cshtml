@@ -1,0 +1,148 @@
+﻿@model MyBookingRoles.Models.Booking.Artist
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div>
+    <h4>Artist Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dd>
+            @if (Model.ProfilePic != null)
+            {
+                var base64 = Convert.ToBase64String(Model.ProfilePic);
+                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+                <img src='@imgsrc' style="width:100px;height:100px" class="img-rounded" />
+
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Speciality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RatePerHour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatePerHour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisableNewBookings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisableNewBookings)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfilePic)
+        </dt>
+
+        <dd>
+
+            <div>
+                <h4>Artist Details</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ArtistName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ArtistName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Speciality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Speciality)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RatePerHour)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.RatePerHour)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DisableNewBookings)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DisableNewBookings)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PhoneNum)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PhoneNum)
+                    </dd>
+
+
+
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistID }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+
+
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

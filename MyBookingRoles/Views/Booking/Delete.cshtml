@@ -1,0 +1,146 @@
+﻿@model MyBookingRoles.Models.Booking.Bookings
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Bookings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Artist.ArtistName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artist.ArtistName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Package.PackageType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Package.PackageType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service.ServiceType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service.ServiceType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.TimeBlockHelper)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TimeBlockHelper)
+            </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookingFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistRateFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtistRateFee)
+        </dd>
+
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PackageCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PackageCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalDue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalDue)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+

@@ -1,0 +1,141 @@
+﻿@model MyBookingRoles.Models.Booking.Bookings
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class=" panel panel-success col-xs-8 col-xs-offset-2">
+    <div class=" panel-heading"> <h2>Book an Artist</h2></div>
+    <div class="panel-body">
+
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserID, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Label(User.Identity.Name, User.Identity.Name)
+                        @Html.HiddenFor(model => model.UserID)
+                        @Html.ValidationMessageFor(model => model.UserID)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ArtistID, "Artist / Photographer Name*", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("ArtistID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ArtistID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LocationId, "Location /Venue*", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("LocationId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PackageId, "Photo / Video Package", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("PackageId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PackageId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Time, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("TimeBlockHelper", String.Empty)
+                        @Html.ValidationMessageFor(model => model.Time)
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.end, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.end, new
+                        {@*type = "date",*@  htmlAttributes = new { @class = "form-control" }
+                    })
+                        @Html.ValidationMessageFor(model => model.end, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ServiceId, "Event / Function*", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("ServiceId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ServiceId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Book" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        <div>
+            <a href="javascript:void(0);" onclick="history.go(-1);">Go Back</a>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Select Artist and Date"));
+                            $('#TimeBlockHelper').val("placeholder");
+                            $("#TimeBlockHelper").prop("disabled", true);
+                            $("#Date, #ArtistID").change(function () {
+                                if ($("#ArtistID").val() != "" && $("#Date").val() != "") {
+                                    var options = {};
+                                    options.url = "/Bookings/GetAvailableAppointments";
+                                    options.type = "POST";
+                                    options.data = JSON.stringify({ artID: $("#ArtistID").val(), Date: $("#Date").val() });
+                                    options.dataType = "json";
+                                    options.contentType = "application/json";
+                                    options.success = function (data) {
+                                        data = $.map(data, function (item, a) {
+                                            return "<option value=" + item.Value + ">" + item.Text + "</option>";
+                                        });
+
+                                        $("#TimeBlockHelper").html(data.join(""));
+                                        $("#TimeBlockHelper").prop("disabled", false);
+                                    };
+                                    options.error = function () { alert("Error retrieving available Bookings!"); };
+                                    $.ajax(options);
+                                }
+                                else {
+                                    $("#TimeBlockHelper").empty();
+                                    $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Select Artist and Date"));
+                                    $('#TimeBlockHelper').val("placeholder");
+                                    $("#TimeBlockHelper").prop("disabled", true);
+                                }
+                            });
+                            $('#ArtistID').trigger('change');
+                        });
+    </script>
+}

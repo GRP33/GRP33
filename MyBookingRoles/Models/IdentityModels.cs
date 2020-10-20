@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MyBookingRoles.Models.Booking;
 
 namespace MyBookingRoles.Models
 {
@@ -27,6 +28,8 @@ namespace MyBookingRoles.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            base.Configuration.ProxyCreationEnabled = false;
+
             //Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
         }
 
@@ -34,6 +37,21 @@ namespace MyBookingRoles.Models
         {
             return new ApplicationDbContext();
         }
+
+        //Bookings
+
+        public DbSet<Administration> Administrations { get; set; }
+        public virtual DbSet<Artist> Artists { get; set; }
+        public virtual DbSet<Bookings> Bookings { get; set; }
+
+        //public virtual DbSet<CustomerProfile> Customers { get; set; }
+
+       // public virtual DbSet<Location> Locations { get; set; }
+
+        public virtual DbSet<Service> Services { get; set; }
+
+        public virtual DbSet<Package> Packages { get; set; }
+        public virtual DbSet<BookPayment> Payments { get; set; }
 
         //Store Internal
         public System.Data.Entity.DbSet<MyBookingRoles.Models.Store.Category> Category { get; set; }

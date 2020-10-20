@@ -1,0 +1,92 @@
+﻿@model MyBookingRoles.Models.Booking.Bookings
+@{
+    ViewBag.Title = "Artist Availability";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class=" panel panel-success col-xs-8 col-xs-offset-2">
+
+    <div class=" panel-heading"> Artist Availability</div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            <div class="form-horizontal">
+                <h4>Availability</h4>
+                <hr />
+                <div class="form-group">
+                    @Html.Label("Artist's Name", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Label((string)ViewBag.ArtistName, new { @class = "control-label col-md-2" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Date, new { @class = "control-label col-md-2" })
+                        @Html.ValidationMessageFor(model => model.Date)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Available Bookings", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("TimeBlockHelper", String.Empty)
+                        @Html.ValidationMessageFor(model => model.Time)
+                    </div>
+                </div>
+            </div>
+
+            if (Model.Artist.DisableNewBookings != true)
+            {
+                Html.ActionLink("Book Artist", "Create", "Bookings", new { Controller = "Bookings", Action = "Create", id = Model.ArtistID });
+            }
+
+        }
+
+        <div>
+            @*Use the browser's internal history. Otherwise Redirectin to all Appointments*@
+            <a href="javascript:void(0);" onclick="history.go(-1);">Go Back</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Select Date"));
+            $('#TimeBlockHelper').val("placeholder");
+            $("#TimeBlockHelper").prop("disabled", true);
+            $("#Date").change(function () {
+                if ($("#Date").val() != "") {
+                    var options = {};
+                    options.url = "/Bookings/GetAvailableAppointments";
+                    options.type = "POST";
+                    options.data = JSON.stringify({ artID: '@Model.ArtistID', Date: $("#Date").val() });
+                    options.dataType = "json";
+                    options.contentType = "application/json";
+                    options.success = function (data) {
+                        data = $.map(data, function (item, a) {
+                            return "<option value=" + item.Value + ">" + item.Text + "</option>";
+                        });
+
+                        $("#TimeBlockHelper").html(data.join(""));
+                        $("#TimeBlockHelper").prop("disabled", false);
+                    };
+                    options.error = function () { alert("Error retrieving available bookings!"); };
+                    $.ajax(options);
+                }
+                else {
+                    $("#TimeBlockHelper").empty();
+                    $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Select Date"));
+                    $('#TimeBlockHelper').val("placeholder");
+                    $("#TimeBlockHelper").prop("disabled", true);
+                }
+            });
+        });
+    </script>
+}

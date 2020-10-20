@@ -1,0 +1,26 @@
+﻿@model MyBookingRoles.Models.Booking.Bookings
+@{
+    ViewBag.Title = "Succesful";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>Succesful</h2>
+<h1>..</h1>
+<div class="panel panel-success col-xs-5 col-xs-offset-2">
+    <div class=" panel-heading">Booking Saved</div>
+    <div class=" panel-body">
+
+        <h1> <span class="glyphicon glyphicon-ok-sign" style="height:100px; width:100px;color:lawngreen; align-items:center"></span></h1>
+        <h2><b>Booking successfully save</b></h2>
+
+        <p> Thank you for making a booking with us.</p>
+        <p>The artist book will view your booking and update your booking status</p>
+        <p><b>The total amount for your booking is</b> <b style="text-underline-position:below; color:rgba(25, 64, 72, 0.90)"> R @Html.DisplayFor(p => p.TotalDue)</b></p>
+
+        <div>
+            <ul>
+                <li>@Html.ActionLink("Back Home", "Index", "Home")</li>
+            </ul>
+        </div>
+    </div>
+</div>

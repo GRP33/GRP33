@@ -1,0 +1,152 @@
+﻿@model MyBookingRoles.Models.Booking.Bookings
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="panel panel-success col-xs-3 col-xs-offset-2">
+    <div class="panel-heading"><h4>Booking Details</h4></div>
+    <div class="panel-body">
+        <hr />
+
+
+        <p>
+            <b>
+                @Html.DisplayFor(model => model.ApplicationUser.Name) booking details are as follow:
+            </b>
+        </p>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Artist.ArtistName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Artist.ArtistName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Package.PackageType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Package.PackageType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Service.ServiceType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Service.ServiceType)
+            </dd>
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Time)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Time)
+            </dd>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.TimeBlockHelper)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TimeBlockHelper)
+                </dd>*@
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Duration)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Duration)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BookingFee)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BookingFee)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ArtistRateFee)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ArtistRateFee)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PackageCost)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PackageCost)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EventFee)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EventFee)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Discount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Discount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalDue)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalDue)
+            </dd>
+
+        </dl>
+
+
+        <p>
+            @if (User.IsInRole("Admin, Client"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.BookingID })
+            }
+            <a href="javascript:void(0);" onclick="history.go(-1)">Go Back</a>
+        </p>
+    </div>
+</div>

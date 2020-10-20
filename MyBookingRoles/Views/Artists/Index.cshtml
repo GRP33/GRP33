@@ -1,0 +1,92 @@
+﻿@model IEnumerable<MyBookingRoles.Models.Booking.Artist>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2>Available Artists</h2>
+@if (User.IsInRole("SuperAdmin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+@using (Html.BeginForm("Index", "Artist", FormMethod.Get))
+{
+    <p> Title: @Html.TextBox("SearchString") Event Type: @Html.DropDownList("artCoverage", "All")<br /> </p>
+    <p><input type="submit" value="Filter" /></p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtistName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RatePerHour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisableNewBookings)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfilePic)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtistName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speciality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatePerHour)
+            </td>
+            <td>
+                @(item.DisableNewBookings ? "Yes" : "No")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNum)
+            </td>
+            <td>
+                <img src="~/images/Artist/@Html.DisplayFor(modelItem => item.ProfilePic)" style="height:90px;width:90px" />
+            </td>
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ArtistID }) |
+                    @Html.ActionLink("Upcoming Appointments", "UpcomingAppointments", new { id = item.ArtistID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ArtistID })
+
+                </td>
+
+            }
+            else
+                              if ((item.DisableNewBookings ? "Yes" : "No") == "No")
+            {
+                <td>
+                    @Html.ActionLink("Check Availability", "Availability", new { Controller = "Artists", Action = "Availability", id = item.ArtistID })
+                </td>
+            }
+        </tr>
+    }
+
+</table>
+
+

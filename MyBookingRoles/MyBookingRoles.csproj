@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DHTMLX">
+      <HintPath>..\..\..\..\Desktop\Asi\Studio45 Last Kick\Studio45 Last Kick\For Local host 2907\Studio45\Studio45\bin\DHTMLX.dll</HintPath>
+    </Reference>
+    <Reference Include="Itenso.TimePeriod">
+      <HintPath>..\..\..\..\Documents\2020 codes\Booking\Booking\bin\Itenso.TimePeriod.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
@@ -57,6 +63,9 @@
     </Reference>
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal">
+      <HintPath>..\..\..\..\Desktop\Dll\PayPal.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -188,11 +197,17 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppUsersController.cs" />
+    <Compile Include="Controllers\Booking\AdministratorController.cs" />
+    <Compile Include="Controllers\Booking\ArtistsController.cs" />
+    <Compile Include="Controllers\Booking\BookingController.cs" />
+    <Compile Include="Controllers\Booking\PackagesController.cs" />
+    <Compile Include="Controllers\Booking\BookPaymentController.cs" />
+    <Compile Include="Controllers\Booking\ServicesController.cs" />
     <Compile Include="Controllers\Delivery\DeliverySystemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyUserController.cs" />
-    <Compile Include="Controllers\PayPal\PayPalController.cs" />
+    <Compile Include="Controllers\PayPals\PayPalController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\Stores\BrandsController.cs" />
     <Compile Include="Controllers\Stores\CategoriesController.cs" />
@@ -242,15 +257,26 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Booking\Administration.cs" />
+    <Compile Include="Models\Booking\Artist.cs" />
+    <Compile Include="Models\Booking\Bookings.cs" />
+    <Compile Include="Models\Booking\BookingsDateGroup.cs" />
+    <Compile Include="Models\Booking\BusinessLogic.cs" />
+    <Compile Include="Models\Booking\MyTimeBlockExtention.cs" />
+    <Compile Include="Models\Booking\Package.cs" />
+    <Compile Include="Models\Booking\BookPayment.cs" />
+    <Compile Include="Models\Booking\Service.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\PayPal\PayPalModel.cs" />
+    <Compile Include="Models\PayPals\PaypalConfiguration.cs" />
     <Compile Include="Models\RateService\Rates.cs" />
     <Compile Include="Models\RateService\Rate_Service.cs" />
     <Compile Include="Models\Store\Brand.cs" />
     <Compile Include="Models\Store\Category.cs" />
     <Compile Include="Models\Store\Discount.cs" />
     <Compile Include="Models\Store\Item.cs" />
+    <Compile Include="Models\Store\Logger.cs" />
     <Compile Include="Models\Store\Order.cs" />
     <Compile Include="Models\Store\OrderDetails.cs" />
     <Compile Include="Models\Store\Product.cs" />
@@ -367,6 +393,33 @@
     <Content Include="Views\Store\CategoryCatalogue.cshtml" />
     <Content Include="Views\Store\ProductDetails.cshtml" />
     <Content Include="Views\SuperAdmin\DeliverySystemIndex.cshtml" />
+    <Content Include="Views\Services\Create.cshtml" />
+    <Content Include="Views\Services\Delete.cshtml" />
+    <Content Include="Views\Services\Details.cshtml" />
+    <Content Include="Views\Services\Edit.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Packages\Create.cshtml" />
+    <Content Include="Views\Packages\Delete.cshtml" />
+    <Content Include="Views\Packages\Details.cshtml" />
+    <Content Include="Views\Packages\Edit.cshtml" />
+    <Content Include="Views\Packages\Index.cshtml" />
+    <Content Include="Views\Artists\ArtistList.cshtml" />
+    <Content Include="Views\Artists\Availability.cshtml" />
+    <Content Include="Views\Artists\Create.cshtml" />
+    <Content Include="Views\Artists\Delete.cshtml" />
+    <Content Include="Views\Artists\Details.cshtml" />
+    <Content Include="Views\Artists\Edit.cshtml" />
+    <Content Include="Views\Artists\History.cshtml" />
+    <Content Include="Views\Artists\Index.cshtml" />
+    <Content Include="Views\Artists\UpcomingBookings.cshtml" />
+    <Content Include="Views\Administrator\Create.cshtml" />
+    <Content Include="Views\Administrator\Edit.cshtml" />
+    <Content Include="Views\Administrator\Index.cshtml" />
+    <Content Include="Views\Booking\Create.cshtml" />
+    <Content Include="Views\Booking\Delete.cshtml" />
+    <Content Include="Views\Booking\Details.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
+    <Content Include="Views\Booking\Succesful.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -384,6 +437,7 @@
   <ItemGroup>
     <Folder Include="images\Site_Imaes\" />
     <Folder Include="Views\DeliverySystem\" />
+    <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202009022021118_BrandVisibility.resx">

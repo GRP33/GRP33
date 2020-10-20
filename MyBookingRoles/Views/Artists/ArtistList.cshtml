@@ -1,0 +1,92 @@
+﻿@model PagedList.IPagedList<MyBookingRoles.Models.Booking.Artist>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "ArtistList";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<h1> YOUR ARTISTS</h1>
+
+<div>
+    @foreach (var x in Model)
+    {
+        <div class="panel-default col-sm-3">
+
+           
+            <div class="page-header">
+
+                <div class="panel-body">
+                    <div class="col-sm-3" style="color:black;"></div>
+                    @if (x.ProfilePic != null)
+                    {
+                        var base64 = Convert.ToBase64String(x.ProfilePic);
+                        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+
+                        <img src='@imgsrc' style="width:100px;height:100px" class="img-rounded" />
+
+                    }   <div class="col-sm-9 col-md-6">
+
+                        <h5>
+                            <span id="productname" style="color:black">
+                                @x.ArtistName
+                            </span>
+                        </h5>
+
+                        <h5>
+                            <span id="productname" style="color:black">
+                                @x.LastName
+                            </span>
+                        </h5>
+                        <h5>
+                            <span id="productname" style="color:black">
+                                <b>Speciality :</b>
+                            </span>
+                        </h5>
+
+                        <h4>
+                            <span id="productname" style="color:black">
+                                @x.Speciality
+                            </span>
+                        </h4>
+
+                    </div>
+                </div>
+                <div >
+                    <a>
+                        @Html.ActionLink("Book Artist", "Create", "Bookings", new { Controller = "Bookings", Action = "Create", id = x.ArtistID });||
+                        @Html.ActionLink("Details", "Artists", new { id = x.ArtistID })||
+                        @Html.ActionLink("Check Availability", "Availability", "Artists", new { Controller = "Artists", Action = "Availability", id = x.ArtistID })
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    }
+
+</div>
+<br />
+<br />
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("ArtistList", new
+    {
+        page,
+        sortOrder = ViewBag.CurrentSort,
+        currentFilter = ViewBag.CurrentFilter
+    }))
+
+</div>
+<p>
+
+    @if (Request.IsAuthenticated && User.IsInRole("SuperAdmin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Delete", "Delete")
+        @Html.ActionLink("Edit", "Edit")
+    }
+</p>
+
